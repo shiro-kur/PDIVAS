@@ -1,6 +1,8 @@
 # PDIVAS : Pathogenic Predictor of Deep-Intronic Variants causing Aberrant Splicing
 Predict the deleterious effect of variant on RNA splicing from VCF (variant call format) file.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ![PDIVAS image](/PDIVAS.png)
 ## Availability
 To perform PDIVAS prediction on your environment, there are two options.
