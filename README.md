@@ -47,6 +47,7 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 #It is better to prepare a new conda enviroment for PDIVAS installation.
 conda create -n PDIVAS
 conda activate PDIVAS
+conda install pip
 pip install pdivas
 conda install -c bioconda ensembl-vep spliceai
 ```
