@@ -83,23 +83,22 @@ vep \
 --plugin MaxEntScan,../../reference/MaxEntScan/fordownload,SWA,NCSS \
 --fields "Consequence,SYMBOL,Gene,INTRON,HGVSc,STRAND,ConSplice,MES-SWA_acceptor_diff,MES-SWA_acceptor_alt,MES-SWA_donor_diff,MES-SWA_donor_alt" \
 --compress_output bgzip
--i ../../input/ex_inp.vcf.gz -o ../../data_output/ex_inp_vep.vcf.gz
+-i examples/input.vcf.gz -o examples/input_vep.vcf.gz
 ```
 
 **3. Add output-customed SpliceAI scores**
 ```sh
-spliceai -I ../../data_output/ex_inp_vep.vcf.gz -O ../../data_output/ex_inp_vep_AI.vcf -R ../../reference/hg38.fa -A grch38 -D 300 -M 1
-bgzip ../../data_output/ex_inp_vep_AI.vcf
+spliceai -I examples/input_vep.vcf.gz -O examples/input_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
 ```
 
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
-pdivas -I ../data_output/ex_inp_vep_AI.vcf.gz -O ../data_output/ex_inp_vep_AI_PD.vcf.gz
+pdivas -I input_vep_AI.vcf -O input_vep_AI_PD.vcf.gz -F off
 ```
 ## Usage of PDIVAS command line
 Required parameters:
- - ```-I```: Input VCF with variants of interest.
- - ```-O```: Output VCF with PDIVAS predictions `GENE_ID|PDIVAS_score` Variants in multiple genes have separate predictions for each gene.
+ - ```-I```: Input VCF(.vcf/.vcf.gz) with variants of interest.
+ - ```-O```: Output VCF(.vcf/.vcf.gz) with PDIVAS predictions `GENE_ID|PDIVAS_score` Variants in multiple genes have separate predictions for each gene.
 Optional parameters:
  - ```-F```: filtering function (off/on) : Output all variants (-F off; default) or only deep-intronic variants with PDIVAS scores (-F on)")
  
