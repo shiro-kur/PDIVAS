@@ -1,0 +1,62 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Total number of alternate alleles in called genotypes">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Estimated allele frequency in the range (0,1)">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##contig=<ID=1,length=248956422,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=10,length=133797422,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=11,length=135086622,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=12,length=133275309,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=13,length=114364328,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=14,length=107043718,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=15,length=101991189,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=16,length=90338345,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=17,length=83257441,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=18,length=80373285,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=19,length=58617616,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=2,length=242193529,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=20,length=64444167,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=21,length=46709983,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=22,length=50818468,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=3,length=198295559,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=4,length=190214555,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=5,length=181538259,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=6,length=170805979,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=7,length=159345973,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=8,length=145138636,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=9,length=138394717,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=MT,length=16569,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=X,length=156040895,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##contig=<ID=Y,length=57227415,assembly=Homo_sapiens.GRCh38.dna.toplevel.fa>
+##liftOverProgram=CrossMap,version=0.6.4,website=https://crossmap.readthedocs.io/en/latest/
+##liftOverChainFile=/net/isilonP/public/ro/ensweb-data/latest/tools/www/e108/assembly_converter/homo_sapiens/GRCh37_to_GRCh38.chain.gz
+##originalFile=/nfs/incoming/ensweb/live/www/temporary/tools/AssemblyConverter/X/J/B/bJpKfbjMi5xxJ/1/ex_inp.vcf
+##targetRefGenome=/net/isilonP/public/ro/ensweb-data/latest/tools/www/e108/assembly_converter/homo_sapiens/Homo_sapiens.GRCh38.dna.toplevel.fa
+##liftOverDate=December24,2022
+##VEP="v105" time="2022-12-24 21:51:10" cache="../../reference/homo_sapiens/107_GRCh38" ensembl-variation=105.ac8178e ensembl-io=105.2a0a40c ensembl=105.f357e33 ensembl-funcgen=105.660df8f 1000genomes="phase3" COSMIC="95" ClinVar="202201" HGMD-PUBLIC="20204" assembly="GRCh38.p13" dbSNP="154" gencode="GENCODE 41" genebuild="2014-07" gnomADe="r2.1.1" gnomADg="v3.1.2" polyphen="2.2.2" regbuild="1.0" sift="sift5.2.2"
+##INFO=<ID=CSQ,Number=.,Type=String,Description="Consequence annotations from Ensembl VEP. Format: Consequence|SYMBOL|HGNC_ID|Gene|INTRON|HGVSc|STRAND|ConSplice|MES-SWA_acceptor_diff|MES-SWA_acceptor_alt|MES-SWA_donor_diff|MES-SWA_donor_alt">
+##MES-NCSS_downstream_acceptor=Nearest downstream canonical splice acceptor sequence score
+##MES-NCSS_downstream_donor=Nearest downstream canonical splice donor sequence score
+##MES-NCSS_upstream_acceptor=Nearest upstream canonical splice acceptor sequence score
+##MES-NCSS_upstream_donor=Nearest upstream canonical splice donor sequence score
+##MES-SWA_acceptor_alt=Highest splice acceptor alternate sequence score
+##MES-SWA_acceptor_diff=Difference between the acceptor reference comparison and alternate sequence scores
+##MES-SWA_acceptor_ref=Highest splice acceptor reference sequence score
+##MES-SWA_acceptor_ref_comp=Acceptor reference comparison sequence score
+##MES-SWA_donor_alt=Highest splice donor alternate sequence score
+##MES-SWA_donor_diff=Difference between the donor reference comparison and alternate sequence scores
+##MES-SWA_donor_ref=Highest splice donor reference sequence score
+##MES-SWA_donor_ref_comp=Donor reference comparison sequence score
+##MaxEntScan_alt=MaxEntScan alternate sequence score
+##MaxEntScan_diff=MaxEntScan score difference
+##MaxEntScan_ref=MaxEntScan reference sequence score
+##INFO=<ID=ConSplice,Number=.,Type=String,Description="../../reference_output/ConSplice.50bp_region.inverse_proportion_refo.bed.gz (overlap)">
+##INFO=<ID=SpliceAI,Number=.,Type=String,Description="SpliceAIv1.3.1 variant annotation.(output-modified ver by Kurosawa, et al. 2023) These include delta scores (DS) and raw scores (RS) and delta positions (DP) for acceptor gain (AG), acceptor loss (AL), donor gain (DG), and donor loss (DL). Format: ALLELE|GENE_ID|DS_AG|RS_AG|DP_AG|DS_AL|RS_AL|DP_AL|DS_DG|RS_DG|DP_DG|DS_DL|RS_DL|DP_DL">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+X	32644714	NM_004006.3:c.1149+250C>T-Falzarano_et_al._2021&Donor-side&pseudo-exon	G	A	.	.	CSQ=upstream_gene_variant|MIR548F5|HGNC:35309|ENSG00000221348|||-1|0.967128792856175|-0.751|-4.624|-7.754|6.456,intron_variant|DMD|HGNC:2928|ENSG00000198947|10/78|ENST00000357033.9:c.1149+250C>T|-1|0.967128792856175|-0.751|-4.624|-7.754|6.456;SpliceAI=A|ENSG00000198947|0.33|0.38|142|0.00|0.00|-149|0.37|0.37|2|0.00|0.00|-23
+1	97579893	NM_000110.4:c.1129-5923C>G-Van_Kuilenburg_et_al._2010&Donor-side&pseudo-exon	G	C	.	.	CSQ=intron_variant|DPYD|HGNC:3012|ENSG00000188641|10/22|ENST00000370192.8:c.1129-5923C>G|-1|0.0019334947439514|-1.558|-3.781|-8.273|8.680;SpliceAI=C|ENSG00000188641|0.68|0.68|44|0.00|0.00|-40|0.77|0.77|1|0.00|0.00|-31
+11	47419927	NM_002804.5:c.1127+337A>G-Kr?ll-Hermi_et_al._2020&Donor-side&pseudo-exon	T	C	.	.	CSQ=downstream_gene_variant|SLC39A13|HGNC:20859|ENSG00000165915|||1|0.0666285780117037|0.730|-0.547|-1.250|-6.898,intron_variant|PSMC3|HGNC:9549|ENSG00000165916|10/11|ENST00000298852.8:c.1127+337A>G|-1|0.0666285780117037|0.350|4.743|-8.182|9.802;SpliceAI=C|ENSG00000165916|0.87|0.93|114|0.00|0.00|-3|0.85|0.85|1|0.00|0.00|-3
+11	47419927	NM_002804.5:c.1127+337A>C-Di_Scipio_et_al._2020&Upstream_of_acceptor&pseudo-exon	T	G	.	.	CSQ=intron_variant|PSMC3|HGNC:9549|ENSG00000165916|10/11|ENST00000298852.8:c.1127+337A>C|-1|0.0666285780117037|-0.223|5.316|0.091|1.529,downstream_gene_variant|SLC39A13|HGNC:20859|ENSG00000165915|||1|0.0666285780117037|-8.598|-4.936|-9.138|-5.302;SpliceAI=G|ENSG00000165916|0.00|0.00|-76|0.00|0.00|114|0.00|0.00|-19|0.00|0.00|1
+5	148411297	NM_030793.5:c.1093+532C>G-Saferali_et_al._2019&Downstream_of_donor&pseudo-exon	C	G	.	.	CSQ=intron_variant|FBXO38|HGNC:28844|ENSG00000145868|9/21|ENST00000340253.10:c.1093+532C>G|1|0.9678414265368328|1.266|-1.254|-7.480|-5.983;SpliceAI=G|ENSG00000145868|0.02|0.58|-217|0.00|0.00|-73|0.01|0.60|-59|0.00|0.00|-158
+9	34649954	NM_000155.4:c.1059+390A>G-Latchman_et_al._2020&Acceptor-side&pseudo-exon	A	G	.	.	CSQ=intron_variant|GALT|HGNC:4135|ENSG00000213930|10/10|ENST00000378842.8:c.1059+390A>G|1|0.9587385346514667|-8.750|2.656|-8.182|-3.872,upstream_gene_variant|IL11RA|HGNC:5967|ENSG00000137070|||1|0.9587385346514667|-8.750|2.656|-8.182|-3.872;SpliceAI=G|ENSG00000258728|0.15|0.15|1|0.00|0.00|8|0.08|0.11|187|0.00|0.00|-187,G|ENSG00000213930|0.25|0.25|1|0.00|0.00|8|0.11|0.18|187|0.00|0.00|-187
+7	117540231	NM_000492.4:c.1002?1113_1002-1110delGAAT-Faa_et_al._2009&Exonic&pseudo-exon	GG	G	.	.	CSQ=frameshift_variant|CFTR|HGNC:1884|ENSG00000001626||ENST00000003084.11:c.1002del|1|0.0268386634793986|0.142|-5.853|9.513|-10.807;SpliceAI=G|ENSG00000001626|0.00|0.00|81|0.00|0.00|-60|0.00|0.01|-60|0.02|0.87|115
