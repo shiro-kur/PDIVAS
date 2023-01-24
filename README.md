@@ -10,12 +10,11 @@
 - The scope of PDIVAS prediction is variants in protein-coding genes on autosomes and X chromosome. 
 - This command line interface is compatible with variant file on VCF format. 
  
-PDIVAS is modeled on random forest algorism using features from 
- 1. Splicing predictors of [SpliceAI](https://github.com/Illumina/SpliceAI) ([Jaganathan et al., Cell 2019](https://www.sciencedirect.com/science/article/pii/S0092867418316295?via%3Dihub)) and [MaxEntScan](http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html) ([Yao and Berge, j. Comput. Biol. 2004](https://www.liebertpub.com/doi/10.1089/1066527041410418?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub++0pubmed)
-      
-      (*)The output module of SpliceAI wass customed for PDIVAS features (see the Option2, for the details).
+PDIVAS is modeled on random forest algorism using features from  
+1) **Splicing predictors** of [SpliceAI](https://github.com/Illumina/SpliceAI) ([Jaganathan et al., Cell 2019](https://www.sciencedirect.com/science/article/pii/S0092867418316295?via%3Dihub)) and [MaxEntScan](http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html) ([Yao and Berge, j. Comput. Biol. 2004](https://www.liebertpub.com/doi/10.1089/1066527041410418?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub++0pubmed))  
+(*)The output module of SpliceAI wass customed for PDIVAS features (see the Option2, for the details).
           
- 2. Human splicing constraint score of [ConSplice](https://github.com/mikecormier/ConSplice) ([Cormier et al., BMC Bioinfomatics 2022](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-05041-x)).
+ 2) **Human splicing constraint score** of [ConSplice](https://github.com/mikecormier/ConSplice) ([Cormier et al., BMC Bioinfomatics 2022](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-05041-x)).
 
 ## Reference & contact
 
@@ -63,20 +62,20 @@ cp -r ./annotations_for_customed_SpliceAI path_to_your_installed_path/annotation
 # check the successful custom by comparing the output file between ~~.vcf
 ```
 For VEP custom usage,
-- Donwload VEP cache file (version>=107, should correspond to VEP tool version).
-Follow the instruction of "Manually downloading caches" part below.
-https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html
-- Download ConSplice.50bp_region.inverse_proportion_refor.bed.gz from ....
-- To implement MaxEntScan plugin, follow the instruction below.
-https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan
-- 
+- Donwload VEP cache file (version>=107, should correspond to VEP tool version).  
+Follow the instruction of "Manually downloading caches" part below.  
+(https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
+- To implement MaxEntScan plugin, follow the instruction below.  
+(https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan)
+- Download ConSplice score file from [here]().  
+The file was editted from the original score file of ([Cormier et al., BMC Bioinfomatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
 
-**1.Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
+**1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
 bcftools norm -m - multi.vcf > bi.vcf
 ```
 
-**2.Add gene annotations, MaxEntScan scores and ConSplice scores with VEP.**
+**2. Add gene annotations, MaxEntScan scores and ConSplice scores with VEP.**
 ```sh
 vep \
 --cache --offline --cache_version 107 --assembly GRCh38 --hgvs --pick_allele_gene \
@@ -104,11 +103,12 @@ Required parameters:
 Optional parameters:
  - ```-F```: filtering function (off/on) : Output all variants (-F off; default) or only deep-intronic variants with PDIVAS scores (-F on)")
  
- Details of SpliceAI INFO field:
+ Details of PDIVAS INFO field:
 
 |    ID    | Description |
 | -------- | ----------- |
-|  GENE_ID  | Ensembl gene ID based on GENCODE V...(GRCh38) V...(GRCh37) When  |
-|  PDIVAS_score  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
+|  GENE_ID  | Ensembl gene ID based on GENCODE V41(GRCh38) or V19(GRCh37) |
+|  PDIVAS  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope<br>       (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
 
+## Interpretation of PDIVAS score
 
