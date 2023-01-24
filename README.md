@@ -57,7 +57,8 @@ conda install -c bioconda ensembl-vep spliceai
 The successful installation was verified on anaconda version 22.11.1
 
 **0-2. Setting custom usages**
-For output-customed SpliceAI
+
+-For output-customed SpliceAI
 ```sh
 git clone git@github.com:shiro-kur/PDIVAS.git
 cd PDIVAS/Customed_SpliceAI
@@ -67,7 +68,7 @@ cp -r ./annotations_for_customed_SpliceAI path_to_your_installed_path/annotation
 
 # check the successful custom by comparing the output file between ~~.vcf
 ```
-For VEP custom usage,
+-For VEP custom usage,
 - Donwload VEP cache file (version>=107, should correspond to VEP tool version).  
 Follow the instruction of "Manually downloading caches" part below.  
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
