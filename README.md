@@ -31,11 +31,11 @@ conda install -c bioconda tabix bcftools
 
 **1. Peform PDIVAS prediction**
 ```sh
-bgzip -c examples/input.vcf > example/input.vcf.gz
-tabix examples/input.vcf.gz
+bgzip -c examples/ex.vcf > example/ex.vcf.gz
+tabix examples/ex.vcf.gz
 #The site file enables quick annotation
-bcftools query -f'%CHROM\t%POS\n' examples/input.vcf.gz > examples/input_sites.txt
-bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz -R examples/input_sites.txt examples/input.vcf.gz | bgzip -c > examples/output_precomp.vcf.gz
+bcftools query -f'%CHROM\t%POS\n' examples/ex.vcf.gz > examples/ex_sites.txt
+bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz -R examples/ex_sites.txt examples/ex.vcf.gz | bgzip -c > examples/ex_precomp.vcf.gz
 #Compare the output_precomp.vcf.gz with output_precomp_expect.vcf.gz to validate the succcessful annotation.
 ```
 
@@ -86,17 +86,17 @@ vep \
 --plugin MaxEntScan,../../reference/MaxEntScan/fordownload,SWA,NCSS \
 --fields "Consequence,SYMBOL,Gene,INTRON,HGVSc,STRAND,ConSplice,MES-SWA_acceptor_diff,MES-SWA_acceptor_alt,MES-SWA_donor_diff,MES-SWA_donor_alt" \
 --compress_output bgzip
--i examples/input.vcf.gz -o examples/input_vep.vcf.gz
+-i examples/ex.vcf.gz -o examples/ex_vep.vcf.gz
 ```
 
 **3. Add output-customed SpliceAI scores**
 ```sh
-spliceai -I examples/input_vep.vcf.gz -O examples/input_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
+spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
 ```
 
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
-pdivas -I input_vep_AI.vcf -O input_vep_AI_PD.vcf.gz -F off
+pdivas -I ex_vep_AI.vcf -O ex_vep_AI_PD.vcf.gz -F off
 ```
 ## Usage of PDIVAS command line
 Required parameters:
