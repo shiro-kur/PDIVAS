@@ -32,9 +32,10 @@ conda install -c bioconda tabix bcftools
 
 **1. Peform PDIVAS prediction**
 ```sh
-bgzip input.vcf.gz
-tabix input.vcf.gz
-bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz input.vcf.gz | bgzip -c > output.vcf.gz
+bgzip -c examples/input.vcf > example/input.vcf.gz
+tabix examples/input.vcf.gz
+bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz examples/input.vcf.gz | bgzip -c > examples/output_precomp.vcf.gz
+#Compare the output_precomp.vcf.gz with output_precomp_expect.vcf.gz to validate the succcessful annotation.
 ```
 
 ## Option2. Peform annotation of individual features and calculation of PDIVAS scores 
@@ -51,10 +52,13 @@ The successful installation was verified on anaconda(version=.....)
 **0-2. Setting custom usages**
 For output-customed SpliceAI
 ```sh
-cp ./
-cp ./
-# check the successful custom by comparing the output file between ~~.vcf
+git clone git@github.com:shiro-kur/PDIVAS.git
+cd PDIVAS/Customed_SpliceAI
+cp ./__main__for_customed_SpliceAI.py path_to_your_installed_path/__main__.py
+cp ./utils_for_customed-SpliceAI.py path_to_your_installed_path/__utils__.py
+cp -r ./annotations_for_customed_SpliceAI path_to_your_installed_path/annotations
 
+# check the successful custom by comparing the output file between ~~.vcf
 ```
 For VEP custom usage,
 - Donwload VEP cache file (version>=107, should correspond to VEP tool version).
