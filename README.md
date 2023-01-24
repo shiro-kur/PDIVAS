@@ -44,11 +44,13 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 
 **0-1. Installation**
 ```sh
-conda install PDIVAS_env.yml
+#It is better to prepare a new conda enviroment for PDIVAS installation.
+conda create -n PDIVAS
 conda activate PDIVAS
-pip install PDIVAS
+pip install pdivas
+conda install -c bioconda ensembl-vep spliceai
 ```
-The successful installation was verified on anaconda(version=.....)
+The successful installation was verified on anaconda version 22.11.1
 
 **0-2. Setting custom usages**
 For output-customed SpliceAI
