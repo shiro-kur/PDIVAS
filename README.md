@@ -34,7 +34,8 @@ conda install -c bioconda tabix bcftools
 ```sh
 bgzip -c examples/input.vcf > example/input.vcf.gz
 tabix examples/input.vcf.gz
-bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz examples/input.vcf.gz | bgzip -c > examples/output_precomp.vcf.gz
+bcftools query -f'%CHROM\t%POS\n' examples/input.vcf.gz > examples/input_sites.txt
+bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz -R examples/input_sites.txt examples/input.vcf.gz | bgzip -c > examples/output_precomp.vcf.gz
 #Compare the output_precomp.vcf.gz with output_precomp_expect.vcf.gz to validate the succcessful annotation.
 ```
 
