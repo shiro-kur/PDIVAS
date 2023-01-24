@@ -1,0 +1,4 @@
+pandas
+numpy
+cyvcf2
+scikit-learn==1.0.2
