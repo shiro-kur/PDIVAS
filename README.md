@@ -69,9 +69,9 @@ https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html
 https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan
 - 
 
-**1.Preprocessing VCF format (resolve the mullti-allelic site to single sites)**
+**1.Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
-bcftools norm 
+bcftools norm -m - multi.vcf > bi.vcf
 ```
 
 **2.Add gene annotations, MaxEntScan scores and ConSplice scores with VEP.**
