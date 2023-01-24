@@ -97,7 +97,7 @@ spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch3
 
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
-pdivas -I ex_vep_AI.vcf -O ex_vep_AI_PD.vcf.gz -F off
+pdivas -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 ```
 ## Usage of PDIVAS command line
 Required parameters:
