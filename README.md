@@ -21,7 +21,7 @@ PDIVAS is modeled on random forest algorism using features from
 bioarxiv?  
 a0160561@yahoo.co.jp
 
-## Option1. Prediction with the PDIVAS-precomputed files (SNV+ short indels(1~4nt))
+## \<Option1\><br>Prediction with the PDIVAS-precomputed files (SNV+ short indels(1~4nt))
 For the quick implementation of PDIVAS, please use the score-precomputed file [file here]().
 Possible rare SNVs and short indels(1~4nt) in genes (n=4,512) of Mendelian diseases were comprehensively annotated in the file.
 To annotate your VCF file, please run the command below,for example.
@@ -42,7 +42,7 @@ bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz -R ex
 #Compare the output_precomp.vcf.gz with output_precomp_expect.vcf.gz to validate the succcessful annotation.
 ```
 
-## Option2. Peform annotation of individual features and calculation of PDIVAS scores 
+## \<Option2\><br>Peform annotation of individual features and calculation of PDIVAS scores 
 For more complehensive annotation than pre-computed files, run PDIVAS by following the description below.
 
 **0-1. Installation**
