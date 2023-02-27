@@ -1,4 +1,4 @@
-# PDIVAS : Pathogenic Predictor of Deep-Intronic Variants causing Aberrant Splicing
+# PDIVAS : Pathogenic Predictor for Deep-Intronic Variants causing Aberrant Splicing
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![PDIVAS2_image](/PDIVAS2.png)
