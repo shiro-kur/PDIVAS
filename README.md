@@ -49,7 +49,7 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 
 **0-1. Installation**
 ```sh
-#It is better to prepare a new conda enviroment for PDIVAS installation.
+#It is better to prepare new conda enviroments for PDIVAS installation.
 conda create -n PDIVAS_feat -c bioconda bcftools ensembl-vep spliceai
 conda create -n PDIVAS pip
 conda activate PDIVAS
@@ -77,6 +77,7 @@ Follow the instruction of "Manually downloading caches" part below.
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan)
 - Download ConSplice score file from [here](https://console.cloud.google.com/storage/browser/pdivas;tab=objects?project=vibrant-crawler-377901&prefix=&forceOnObjectsSortingFiltering=false&hl=ja).  
 The file was editted from the originally scored file by ([Cormier et al., BMC Bioinfomatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
+```
 
 **1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
@@ -110,6 +111,7 @@ pdivas -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 Required parameters:
  - ```-I```: Input VCF(.vcf/.vcf.gz) with variants of interest.
  - ```-O```: Output VCF(.vcf/.vcf.gz) with PDIVAS predictions `GENE_ID|PDIVAS_score` Variants in multiple genes have separate predictions for each gene.
+ 
 Optional parameters:
  - ```-F```: filtering function (off/on) : Output all variants (-F off; default) or only deep-intronic variants with PDIVAS scores (-F on)")
  
@@ -120,5 +122,5 @@ Optional parameters:
 |  GENE_ID  | Ensembl gene ID based on GENCODE V41(GRCh38) or V19(GRCh37) |
 |  PDIVAS  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope<br>       (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
 
-## Interpretation of PDIVAS score
+## Interpretation of PDIVAS scores
 
