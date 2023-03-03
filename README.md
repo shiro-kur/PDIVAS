@@ -50,11 +50,10 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 **0-1. Installation**
 ```sh
 #It is better to prepare a new conda enviroment for PDIVAS installation.
-conda create -n PDIVAS
+conda create -n PDIVAS_feat -c bioconda bcftools ensembl-vep spliceai
+conda create -n PDIVAS pip
 conda activate PDIVAS
-conda install pip
 pip install pdivas
-conda install -c bioconda ensembl-vep spliceai
 ```
 The successful installation was verified on anaconda version 22.11.1
 
@@ -81,6 +80,7 @@ The file was editted from the originally scored file by ([Cormier et al., BMC Bi
 
 **1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
+conda activate PDIVAS_feat
 bcftools norm -m - multi.vcf > bi.vcf
 ```
 
@@ -103,6 +103,7 @@ spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch3
 
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
+conda activate PDIVAS
 pdivas -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 ```
 ## Usage of PDIVAS command line
