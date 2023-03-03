@@ -131,4 +131,14 @@ Optional parameters:
 |  PDIVAS  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope<br>       (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
 
 ## Interpretation of PDIVAS scores
+| Threshold | Sensitivity (*1) | candidates/individual (*2) |
+| ------- | --- | --- |
+| >=0.082 | 95% | 26.8 |
+| >=0.151 | 90% | 14.5 |
+| >=0.340 | 85% | 6.7 |
+| >=0.501 | 80% | 4.1 |
+| >=0.575 | 75% | 3.0	|
+| >=0.763 | 70% | 1.2 |
 
+(*1) Sensitivites were calculated on curated pathogenic deep-intronic variants.  
+(*2) Candidates of pathogenic deep-intronic variants were obtained through the process described below from one whole-genome sequening sample 
