@@ -29,7 +29,6 @@ To annotate your VCF file, please run the command below,for example.
 **0. Installation**
 ```sh
 conda install -c bioconda tabix bcftools
-(or conda install pdivas (including samtools))
 ```
 
 **1. Perform PDIVAS prediction**
@@ -50,7 +49,12 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 **0-1. Installation**
 ```sh
 #It is better to prepare new conda enviroments for PDIVAS installation.
-conda create -n PDIVAS_feat -c bioconda bcftools ensembl-vep spliceai
+#1.Environment for calculating PDIVAS features
+conda create -n PDIVAS_feat -c bioconda bcftools ensembl-vep pip
+conda activate PDIVAS_feat
+#Avoid installing spliceai via anaconda.
+pip install spliceai tensorflow
+#2.Environment for PDIVAS prediction
 conda create -n PDIVAS pip
 conda activate PDIVAS
 pip install pdivas
@@ -63,13 +67,17 @@ The successful installation was verified on anaconda version 22.11.1
 ```sh
 git clone git@github.com:shiro-kur/PDIVAS.git
 cd PDIVAS/Customed_SpliceAI
-cp ./__main__for_customed_SpliceAI.py path_to_your_installed_path/__main__.py
-cp ./utils_for_customed-SpliceAI.py path_to_your_installed_path/__utils__.py
-cp -r ./annotations_for_customed_SpliceAI path_to_your_installed_path/annotations
+cp ./__main__for_customed_SpliceAI.py installed_path/__main__.py
+cp ./utils_for_customed-SpliceAI.py installed_path/__utils__.py
+cp -r ./annotations_for_customed_SpliceAI installed_path/annotations
 
+# Examples of installed_path (~/miniconda3/envs/PDIVAS_feat/lib/python3.7/site-packages/spliceai/)
+# You can check the path via $ pip show spliceai
 # the successfully-customed result was described in examples/~~.vcf
+```
 
--For VEP custom usage,
+-For VEP custom usage
+```sh
 - Donwload VEP cache file (version>=107, should correspond to your installed VEP version).  
 Follow the instruction of "Manually downloading caches" part below.  
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
