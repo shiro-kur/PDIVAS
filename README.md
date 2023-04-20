@@ -113,9 +113,16 @@ spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch3
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
 conda activate PDIVAS
-pdivas -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
+pdivas predict -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 ```
+**5. (Optional) Convert VCF file with PDIVAS annotation to TSV file (1 gene annotation per 1 line)**
+```sh
+conda activate PDIVAS
+pdivas vcf2tsv -I examples/ex_vep_AI_PD.vcf.gz -O examples/ex_vep_AI_PD.tsv
+```
+
 ## Usage of PDIVAS command line
+**1. $ pdivas predict**  
 Required parameters:
  - ```-I```: Input VCF(.vcf/.vcf.gz) with variants of interest.
  - ```-O```: Output VCF(.vcf/.vcf.gz) with PDIVAS predictions `GENE_ID|PDIVAS_score` Variants in multiple genes have separate predictions for each gene.
@@ -129,6 +136,12 @@ Optional parameters:
 | -------- | ----------- |
 |  GENE_ID  | Ensembl gene ID based on GENCODE V41(GRCh38) or V19(GRCh37) |
 |  PDIVAS  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope<br>       (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
+
+**2. $ pdivas vcf2tsv**  
+Required parameters:
+ - ```-I```: *Input VCF(.vcf/.vcf.gz) with VEP, SpliceAI,and PDIVAS annotations.
+ - ```-O```: The path to output tsv file name and pass.  
+ *Input VCF is valid only when it was generated through this pipeline.
 
 ## Interpretation of PDIVAS scores
 More details in .
