@@ -13,7 +13,7 @@ try :
         cpu = int(os.environ['CPU'])
 except :
         cpu = 4
-        print("$CPU was not set. Run as $CPU=4")
+        print("$CPU was not set. Run as $CPU=4". Or, you can set via $export CPU=x.)
 
 print("use {}cpus".format(cpu))
 
