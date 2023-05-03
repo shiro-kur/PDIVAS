@@ -65,7 +65,7 @@ The successful installation was verified on anaconda version 22.11.1
 
 -For output-customed SpliceAI
 ```sh
-git clone git@github.com:shiro-kur/PDIVAS.git
+git clone https://github.com/shiro-kur/PDIVAS.git
 cd PDIVAS/Customed_SpliceAI
 cp ./__main__for_customed_SpliceAI.py installed_path/__main__.py
 cp ./utils_for_customed-SpliceAI.py installed_path/__utils__.py
