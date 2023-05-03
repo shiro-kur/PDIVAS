@@ -12,8 +12,8 @@ import os
 try :
         cpu = int(os.environ['CPU'])
 except :
-        cpu = 0
-        print("$CPU was not set. Run as $CPU=O")
+        cpu = 4
+        print("$CPU was not set. Run as $CPU=4")
 
 print("use {}cpus".format(cpu))
 
