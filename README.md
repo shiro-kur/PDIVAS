@@ -50,7 +50,7 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 ```sh
 #It is better to prepare new conda enviroments for PDIVAS installation.
 #1.Environment for calculating PDIVAS features
-conda create -n PDIVAS_feat -c bioconda bcftools ensembl-vep pip
+conda create -n PDIVAS_feat -c bioconda -c conda-forge -c defaults bcftools ensembl-vep pip
 conda activate PDIVAS_feat
 #Avoid installing spliceai via anaconda.
 pip install spliceai tensorflow
