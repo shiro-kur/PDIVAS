@@ -18,7 +18,7 @@ PDIVAS is modeled on random forest algorism to classify pathogenic and benign va
  2) **Human splicing constraint score** of [ConSplice](https://github.com/mikecormier/ConSplice) ([Cormier et al., BMC Bioinfomatics 2022](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-05041-x)).
 
 ## Reference & contact
-[Kurosawa et al. medRxiv 2023](https://www.medrxiv.org/content/10.1101/2023.03.20.23287464v1)  
+[Kurosawa et al. medRxiv 2023](https://www.medrxiv.org/content/10.1101/2023.03.20.23287464v2)  
 a0160561@yahoo.co.jp (Ryo Kurosawa at Kyoto University)
 
 ## \<Option1\><br>Prediction with the PDIVAS-precomputed files (SNV+ short indels　(1~4nt))
