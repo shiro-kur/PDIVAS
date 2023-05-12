@@ -101,7 +101,7 @@ vep \
 --custom ./references/ConSplice.50bp_region.inverse_proportion_refor.bed.gz,ConSplice,bed,overlap,0 \
 --plugin MaxEntScan,./references/MaxEntScan/fordownload,SWA,NCSS \
 --fields "Consequence,SYMBOL,Gene,INTRON,HGVSc,STRAND,ConSplice,MES-SWA_acceptor_diff,MES-SWA_acceptor_alt,MES-SWA_donor_diff,MES-SWA_donor_alt" \
---compress_output bgzip
+--compress_output bgzip \
 -i ./examples/ex.vcf.gz -o ./examples/ex_vep.vcf.gz
 ```
 
