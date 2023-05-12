@@ -77,7 +77,6 @@ cp -rf ./annotations_for_customed_SpliceAI installed_path/annotations
 ```
 
 -For VEP custom usage
-```sh
 - Donwload VEP cache file (version>=107, should correspond to your installed VEP version).  
 Follow the instruction of "Manually downloading caches" part below.  
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
@@ -85,7 +84,6 @@ Follow the instruction of "Manually downloading caches" part below.
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan)
 - Download ConSplice score file from [here](https://console.cloud.google.com/storage/browser/pdivas;tab=objects?project=vibrant-crawler-377901&prefix=&forceOnObjectsSortingFiltering=false&hl=ja).  
 The file was editted from the originally scored file by ([Cormier et al., BMC Bioinfomatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
-```
 
 **1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
