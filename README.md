@@ -98,7 +98,7 @@ bcftools norm -m - multi.vcf > bi.vcf
 vep \
 --cache --offline --cache_version 107 --assembly GRCh38 --hgvs --pick_allele_gene \
 --fasta ./references/hg38.fa.gz --vcf --force \
---custom ./references/ConSplice.50bp_region.inverse_proportion_refor.bed.gz,ConSplice,bed,overlap,0 \
+--custom ./references/ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz,ConSplice,bed,overlap,0 \
 --plugin MaxEntScan,./references/MaxEntScan/fordownload,SWA,NCSS \
 --fields "Consequence,SYMBOL,Gene,INTRON,HGVSc,STRAND,ConSplice,MES-SWA_acceptor_diff,MES-SWA_acceptor_alt,MES-SWA_donor_diff,MES-SWA_donor_alt" \
 --compress_output bgzip \
