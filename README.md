@@ -152,7 +152,7 @@ More details in .
 | >=0.575 | 75% | 3.0	|
 | >=0.763 | 70% | 1.2 |
 
-(*1) Sensitivites were calculated on curated pathogenic deep-intronic variants.  
+(*1) Sensitivites were calculated on curated pathogenic deep-intronic variants in a test dataset.  
 (*2) Candidates of pathogenic deep-intronic variants were obtained through the process described below. (WGS: Whole-genome sequencing)
 
 ![Cand_image](./PDIVAS_pictures_Github/Candidates..png)
