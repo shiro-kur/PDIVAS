@@ -13,9 +13,7 @@ try :
         cpu = int(os.environ['CPU'])
 except :
         cpu = 4
-        print("$CPU was not set. Run as $CPU=4". Or, you can set via $export CPU=x.)
-
-print("use {}cpus".format(cpu))
+        print("$CPU was not set. Run as $CPU=4. Or, you can set via $export CPU=x.")
 
 tf.config.threading.set_intra_op_parallelism_threads(cpu)
 tf.config.threading.set_inter_op_parallelism_threads(cpu)
