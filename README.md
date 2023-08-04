@@ -63,7 +63,7 @@ The successful installation was verified on anaconda version 22.11.1
 
 **0-2. Setting custommed usages**
 
--For output-customed SpliceAI
+-For output-customized SpliceAI
 ```sh
 git clone https://github.com/shiro-kur/PDIVAS.git
 cd PDIVAS/Customed_SpliceAI
@@ -103,7 +103,7 @@ vep \
 -i ./examples/ex.vcf.gz -o ./examples/ex_vep.vcf.gz
 ```
 
-**3. Add output-customed SpliceAI scores**
+**3. Add output-customized SpliceAI scores**
 ```sh
 spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
 ```
