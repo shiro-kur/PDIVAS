@@ -48,18 +48,14 @@ For more complehensive annotation than pre-computed files, run PDIVAS by followi
 
 **0-1. Installation**
 ```sh
-#It is better to prepare new conda enviroments for PDIVAS installation.
-#1.Environment for calculating PDIVAS features
-conda create -n PDIVAS_feat -c bioconda -c conda-forge -c defaults bcftools ensembl-vep pip
-conda activate PDIVAS_feat
-#Avoid installing spliceai via anaconda.
-pip install spliceai tensorflow
-#2.Environment for PDIVAS prediction
-conda create -n PDIVAS pip
+#It is better to prepare new conda environments for PDIVAS installation.
+#1.Environment for calculating PDIVAS features and PDIVAS itself
+conda create -n PDIVAS
 conda activate PDIVAS
-pip install pdivas
+#It takes a little long time to solve the environment.
+conda install -c bioconda -c conda-forge bcftools ensembl-vep==105 spliceai tensorflow==2.6.2 pdivas
 ```
-The successful installation was verified on anaconda version 22.11.1
+The successful installation was verified on anaconda version 23.3.1
 
 **0-2. Setting custommed usages**
 
@@ -87,7 +83,7 @@ The file was editted from the originally scored file by ([Cormier et al., BMC Bi
 
 **1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
 ```sh
-conda activate PDIVAS_feat
+conda activate PDIVAS
 bcftools norm -m - multi.vcf > bi.vcf
 ```
 
@@ -110,12 +106,10 @@ spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch3
 
 **4. Perform the detection of deep-intronic variants and PDIVAS prediction**
 ```sh
-conda activate PDIVAS
 pdivas predict -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 ```
 **5. (Optional) Convert VCF file with PDIVAS annotation to TSV file (1 gene annotation per 1 line)**
 ```sh
-conda activate PDIVAS
 pdivas vcf2tsv -I examples/ex_vep_AI_PD.vcf.gz -O examples/ex_vep_AI_PD.tsv
 ```
 
