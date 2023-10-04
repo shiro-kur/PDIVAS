@@ -6,13 +6,13 @@
 
 ## Sumary
 - PDIVAS is a pathogenicity predictor for deep-intronic variants causing aberrant splicing.
-- The deep-intronic variants can cause pathogenic pseudoexons or extending exons which disturb the normal gene expression and can be the causal of patiens with Mendelian diseases. 
+- The deep-intronic variants can cause pathogenic pseudoexons or extending exons which disturb the normal gene expression and can be the cause of patients with Mendelian diseases. 
 - PDIVAS efficiently prioritizes the causal candidates from a vast number of deep-intronic variants detected by whole-genome sequencing. 
 - The scope of PDIVAS prediction is variants in protein-coding genes on autosomes and X chromosome. 
 - This command-line interface is compatible with variant files in VCF format. 
  
 PDIVAS is modeled on random forest algorism to classify pathogenic and benign variants with referring to features from  
-1) **Splicing predictors** of [SpliceAI](https://github.com/Illumina/SpliceAI) ([Jaganathan et al., Cell 2019](https://www.sciencedirect.com/science/article/pii/S0092867418316295?via%3Dihub)) and [MaxEntScan](http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html) ([Yao and Berge, j. Comput. Biol. 2004](https://www.liebertpub.com/doi/10.1089/1066527041410418?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub++0pubmed))  
+1) **Splicing predictors** of [SpliceAI](https://github.com/Illumina/SpliceAI) ([Jaganathan et al., Cell 2019](https://www.sciencedirect.com/science/article/pii/S0092867418316295?via%3Dihub)) and [MaxEntScan](http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html) ([Yeo and Berge, j. Comput. Biol. 2004](https://www.liebertpub.com/doi/10.1089/1066527041410418?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub++0pubmed))  
 (*)The output module of SpliceAI was customed for PDIVAS features (see the Option2, for the details).
           
  2) **Human splicing constraint score** of [ConSplice](https://github.com/mikecormier/ConSplice) ([Cormier et al., BMC Bioinfomatics 2022](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-05041-x)).
@@ -28,36 +28,49 @@ To annotate your VCF file, please run the command below,for example.
 
 **0. Installation**
 ```sh
-conda install -c bioconda tabix bcftools
+conda install -c bioconda vcfanno
+git clone https://github.com/brentp/vcfanno.git
+```
+**0. Setting score-precomputed files**  
+(Download score-precomputed file above and create a configure file (following https://github.com/brentp/vcfanno))
+```sh
+vi ./conf.toml
+```
+Write as below
+```sh
+[[annotation]]
+file="./PDIVAS_precomputed/GRCh38/PDIVAS_precomputed_short_GRCh38.vcf.gz"
+# ID and FILTER are special fields that pull the ID and FILTER columns from the VCF
+fields = ["PDIVAS"]
+ops=["self"]
+names=["PDIVAS"]
 ```
 
-**1. Perform PDIVAS prediction**
+**2. Perform PDIVAS annotation**   
 ```sh
-# move to your working directory. (The case below is the directory in this repository.)
+# Move to your working directory. (The case below is the directory in this repository.)
 cd examples
 bgzip -c ex.vcf > ex.vcf.gz
 tabix ex.vcf.gz
-#This site file below enables quick annotation
-bcftools query -f'%CHROM\t%POS\n' ex.vcf.gz > ex_sites.txt
-bcftools annotate -c 'INFO/PDIVAS' -a PDIVAS_snv_precomputed_GRCh38.vcf.gz -R ex_sites.txt ex.vcf.gz | bgzip -c > ex_precomp.vcf.gz
-#Compare the output_precomp.vcf.gz with output_precomp_expect.vcf.gz to validate the succcessful annotation.
+
+# Perform annotation
+vcfanno -lua ./vcfanno/example/custom.lua ./conf.toml ./ex.vcf.gz > output_precomp.vcf
+#Compare the output_precomp.vcf with output_precomp_expect.vcf.gz to validate the successful annotation.
 ```
 
 ## \<Option2\><br>Perform annotation of individual features and calculation of PDIVAS scores 
-For more complehensive annotation than pre-computed files, run PDIVAS by following the description below.
+For more comprehensive annotation than pre-computed files, run PDIVAS by following the description below.
 
 **0-1. Installation**
 ```sh
 #It is better to prepare new conda environments for PDIVAS installation.
-#1.Environment for calculating PDIVAS features and PDIVAS itself
-conda create -n PDIVAS
-conda activate PDIVAS
-#It takes a little long time to solve the environment.
-conda install -c bioconda -c conda-forge bcftools ensembl-vep==105 spliceai tensorflow==2.6.2 pdivas
+#They take a little long time to solve the environment.
+conda create -n PDIVAS -c bioconda -c conda-forge spliceai tensorflow==2.6.2 pdivas bcftools vcfanno
+conda create -n VEP -c conda-forge -c bioconda perl==5.26.2 ensembl-vep==105
 ```
 The successful installation was verified on anaconda version 23.3.1
 
-**0-2. Setting custommed usages**
+**0-2. Setting customed usages**
 
 -For output-customized SpliceAI
 ```sh
@@ -73,22 +86,23 @@ cp -rf ./annotations_for_customed_SpliceAI installed_path/annotations
 ```
 
 -For VEP custom usage
-- Donwload VEP cache file (version>=107, should correspond to your installed VEP version).  
-Follow the instruction of "Manually downloading caches" part below.  
+- Download VEP cache file (version>=107, should correspond to your installed VEP version).  
+Follow the instructions of "Manually downloading caches" part below.  
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
-- To implement MaxEntScan plugin, follow the instruction below.  
+- To implement MaxEntScan plugin, follow the instructions below.  
 (https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan)
 - Download ConSplice score file from [here](https://console.cloud.google.com/storage/browser/pdivas;tab=objects?project=vibrant-crawler-377901&prefix=&forceOnObjectsSortingFiltering=false&hl=ja).  
-The file was editted from the originally scored file by ([Cormier et al., BMC Bioinfomatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
+The file was edited from the originally scored file by ([Cormier et al., BMC Bioinformatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
 
-**1. Preprocessing VCF format (resolve the mullti-allelic site to biallelic sites)**
+**1. Preprocessing VCF format (resolve the multi-allelic site to biallelic sites)**
 ```sh
 conda activate PDIVAS
 bcftools norm -m - multi.vcf > bi.vcf
 ```
 
-**2. Add gene annotations, MaxEntScan scores and ConSplice scores with VEP.**
+**2. Add gene annotations, MaxEntScan scores, and ConSplice scores with VEP.**
 ```sh
+conda activate VEP
 vep \
 --cache --offline --cache_version 107 --assembly GRCh38 --hgvs --pick_allele_gene \
 --fasta ./references/hg38.fa.gz --vcf --force \
@@ -101,6 +115,7 @@ vep \
 
 **3. Add output-customized SpliceAI scores**
 ```sh
+conda activate PDIVAS
 spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
 ```
 
@@ -136,7 +151,7 @@ Required parameters:
  *Input VCF is valid only when it was generated through this pipeline.
 
 ## Interpretation of PDIVAS scores
-More details in .
+More details in [Kurosawa et al. medRxiv 2023](https://www.medrxiv.org/content/10.1101/2023.03.20.23287464v2)  .
 | Threshold | Sensitivity (*1) | candidates/individual (*2) |
 | ------- | --- | --- |
 | >=0.082 | 95% | 26.8 |
@@ -146,7 +161,7 @@ More details in .
 | >=0.575 | 75% | 3.0	|
 | >=0.763 | 70% | 1.2 |
 
-(*1) Sensitivites were calculated on curated pathogenic deep-intronic variants in a test dataset.  
+(*1) Sensitivities were calculated on curated pathogenic deep-intronic variants in a test dataset.  
 (*2) Candidates of pathogenic deep-intronic variants were obtained through the process described below. (WGS: Whole-genome sequencing)
 
 ![Cand_image](./PDIVAS_pictures_Github/Candidates..png)
