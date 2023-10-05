@@ -50,11 +50,9 @@ names=["PDIVAS"]
 ```sh
 # Move to your working directory. (The case below is the directory in this repository.)
 cd examples
-bgzip -c ex.vcf > ex.vcf.gz
-tabix ex.vcf.gz
 
 # Perform annotation
-vcfanno -lua ./vcfanno/example/custom.lua ./conf.toml ./ex.vcf.gz > output_precomp.vcf
+vcfanno -lua ./vcfanno/example/custom.lua ./conf.toml ./ex.vcf > output_precomp.vcf
 #Compare the output_precomp.vcf with output_precomp_expect.vcf.gz to validate the successful annotation.
 ```
 
@@ -72,7 +70,7 @@ The successful installation was verified on anaconda version 23.3.1
 
 **0-2. Setting customed usages**
 
--For output-customized SpliceAI
+-For output-customized SpliceAI for PDIVAS conda environment
 ```sh
 git clone https://github.com/shiro-kur/PDIVAS.git
 cd PDIVAS/Customed_SpliceAI
@@ -80,11 +78,11 @@ cp ./__main__for_customed_SpliceAI.py installed_path/__main__.py
 cp ./utils_for_customed-SpliceAI.py installed_path/utils.py
 cp -rf ./annotations_for_customed_SpliceAI installed_path/annotations
 
-# Examples of installed_path (~/miniconda3/envs/PDIVAS_feat/lib/python3.7/site-packages/spliceai/)
-# You can check the path via $ pip show spliceai
+# Examples of installed_path (~/miniconda3/envs/ex/lib/python3.9/site-packages/spliceai)
+# files and directories included in the spliceai directory by default ↓
+# __init__.py  __main__.py  __pycache__  annotations  models  utils.py
 # the successfully-customed result was described in examples/~~.vcf
 ```
-
 -For VEP custom usage
 - Download VEP cache file (version>=107, should correspond to your installed VEP version).  
 Follow the instructions of "Manually downloading caches" part below.  
