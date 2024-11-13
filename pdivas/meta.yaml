@@ -1,5 +1,5 @@
 {% set name = "pdivas" %}
-{% set version = "0.6.0" %}
+{% set version = "1.6.0" %}
 
 package:
   name: {{ name|lower }}
