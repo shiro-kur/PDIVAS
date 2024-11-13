@@ -171,7 +171,6 @@ def vcf2tsv(args):
                         vep_info_index+spliceai_info_index+PD_info_index+SM_index)
 
     itera = 0
-    filt_af = 0
     filt_vep_error = 0
     filt_ai_error = 0
     uniq_annots = set([])
