@@ -92,9 +92,9 @@ def scoring_to_vcf(var,vep_info_index,spliceai_info_index,clf,features,filt):
 		var_df = pd.DataFrame(combined_score_list)
 		var_df["PDIVAS"] = clf.predict_proba(var_df[features])[:,1]
 		new_anno = ["{}|{}".format(d["GENE_ID"], round(d["PDIVAS"],3) \
-					if (var.CHROM != "Y") and (var.CHROM != "Mt") and (d["ConSplice"]!=-1) else "None") \
+					if (var.CHROM != "Y") and (var.CHROM != "Mt") and (d["ConSplice"]!=-1) else "out_of_scope") \
 					for d in var_df.to_dict("records")]
-		var.INFO["PDIVAS"] = ",".join(new_anno) 
+		var.INFO["PDIVAS"] = ",".join(new_anno)
 		return var
 
 	#Filt3: Return annotations without matched genes

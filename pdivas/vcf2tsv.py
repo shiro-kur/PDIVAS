@@ -2,7 +2,7 @@ from cyvcf2 import VCF, Writer
 import csv
 import sys
 
-def vep_editor(var,vep_info_index):
+def vep_editor(var,vep_info_index,spliceai_info_index,PD_info_index):
     vep_annot = {dict(zip(vep_info_index, x.strip().split("|")))["Gene"]:
                         x.strip().split("|")
                         for x in var.INFO["CSQ"].strip().split(",")}
@@ -13,7 +13,7 @@ def vep_editor(var,vep_info_index):
     for gene_id in vep_annot:    
         #output formatting
         oup_list += [base_anno+vep_annot[gene_id]+\
-                     ["." for i in range(len(spliceai_info_index))]+["." for i in range(len(PD_info_index))]]
+                     ["." for i in range(len(spliceai_info_index))]+["wo_annots" for i in range(len(PD_info_index))]]
     
     return oup_list
 
@@ -46,6 +46,6 @@ def vep_ai_matcher(var,vep_info_index,spliceai_info_index,PD_info_index):
 
         else :
             oup_list += [base_anno+vep_annot[gene_id]+\
-                         ["." for i in range(len(spliceai_info_index))]+["." for i in range(len(PD_info_index))]]     
+                         ["." for i in range(len(spliceai_info_index))]+["wo_annots" for i in range(len(PD_info_index))]]     
 
     return oup_list

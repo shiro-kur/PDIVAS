@@ -15,10 +15,6 @@ from pdivas.scoring_to_vcf import scoring_to_vcf
 from pdivas.vcf2tsv import vep_editor
 from pdivas.vcf2tsv import vep_ai_matcher
 
-#https://qiita.com/kzkadc/items/e4fc7bc9c003de1eb6d0
-#http://www.yamamo10.jp/yamamoto/comp/Python/library/argparse/sample/prog/index.html
-#https://qiita.com/tanabe13f/items/6c09f8f71eb2efb1ac75
-
 def get_options():
     parser = argparse.ArgumentParser(
         prog="pdivas",
@@ -149,17 +145,30 @@ def vcf2tsv(args):
     #Set input/output files
     inp_file = args.I
     vcf = VCF(inp_file)
-    
+
+    fir_var = next(vcf, None)
+    fmt_tags = fir_var.FORMAT if fir_var and fir_var.FORMAT else []
+
+    for var in vcf:
+        current_tags = var.FORMAT if var.FORMAT else []
+        for tag in current_tags:
+            if tag not in fmt_tags:
+                fmt_tags.append(tag)
+    vcf.close()
+
     vep_info_index = vcf["CSQ"]["Description"].strip().split("Format:")[1].strip().replace('"',"").split("|")
     spliceai_info_index = vcf["SpliceAI"]["Description"].strip().split("Format:")[1].strip().replace('"',"").split("|")
-    PD_info_index = PD_info_index = ["PD_ID","PDIVAS"]
+    PD_info_index = ["PD_ID","PDIVAS"]
+    SM_index = vcf.samples if vcf.samples else []
+
+    oup_col = ["chr","coordinate","ID","ref","alt","qual","filt"]+vep_info_index+spliceai_info_index+PD_info_index+SM_index
+    hgvs_idx = [i for i, x in enumerate(oup_col) if x == 'Gene'][0]
 
     oup_file = args.O
     csvfile = open(oup_file, "w")
-    
     csv_writer = csv.writer(csvfile, delimiter='\t')
     csv_writer.writerow(["chr","coordinate","ID","ref","alt","qual","filt"]+\
-                        vep_info_index+spliceai_info_index+PD_info_index)
+                        vep_info_index+spliceai_info_index+PD_info_index+SM_index)
 
     itera = 0
     filt_af = 0
@@ -168,17 +177,18 @@ def vcf2tsv(args):
     uniq_annots = set([])
     uniq_vars = set([])
 
+    vcf = VCF(inp_file)
     for var in vcf:
         itera += 1
         
         if (var.INFO.get("CSQ") is None) :
-            print(var.INFO["CSQ"])
-            filt_csq += 1
+            print(var.CHROM, var.start, var.end, var.ID)
+            filt_vep_error += 1
             continue
 
         if (var.INFO.get("SpliceAI") is None) :
             filt_ai_error += 1
-            elem = vep_editor(var,vep_info_index)
+            elem = vep_editor(var,vep_info_index,spliceai_info_index,PD_info_index)
         
         else :
             elem = vep_ai_matcher(var,vep_info_index,spliceai_info_index,PD_info_index)
@@ -191,14 +201,35 @@ def vcf2tsv(args):
             var_ID = ":".join([str(k) for k in [var.CHROM,var.start+1,var.REF,var.ALT[0]]])
             uniq_vars.add(var_ID)
 
+        #Sample columns
+        SMs = []
+        if len(SM_index)>=1:
+            for idx, sample in enumerate(SM_index):
+                SM = []
+                if "GT" in fmt_tags:
+                    GT =str(var.gt_types[idx]) if var.gt_types[idx]!=2 else "NA"
+                    GT = "2" if GT =="3" else GT
+                    SM.append(GT)
+                if "AD" in fmt_tags:
+                    AD =str(var.gt_alt_depths[idx])+","+str(var.gt_ref_depths[idx]) if var.gt_alt_depths[idx] != -1 else "NA,NA" 
+                    SM.append(AD)
+                for tag in [i for i in fmt_tags if i not in ["GT","AD"]] :
+                    sm = var.format(tag)[idx] if var.format(tag) is not None else "NA"
+                    if isinstance(sm, np.ndarray) :
+                        sm = ",".join([str(i) if i > -200000000 else "NA" for i in sm])
+                    elif isinstance(sm, np.str_) :
+                        sm = sm if sm != "." else "NA"
+                    SM.append(sm)
+                SMs.append(":".join(SM))
+
         for gen in range(len(elem)) :
-            annot_ID = ":".join([str(k) for k in [var.CHROM,var.start+1,var.REF,var.ALT[0],elem[gen][12]]])
+            annot_ID = ":".join([str(k) for k in [var.CHROM,var.start+1,var.REF,var.ALT[0],elem[gen][hgvs_idx]]])
             if annot_ID in uniq_annots :
                 print("duplication detected @",annot_ID)
                 continue
             uniq_annots.add(annot_ID)
-            
-            oup_list = elem[gen]
+        
+            oup_list = elem[gen]+SMs
             csv_writer.writerow(oup_list)
 
 
@@ -208,11 +239,9 @@ def vcf2tsv(args):
     print("# of input variants : ",itera)
     print("# of VEP-lacked variants :",filt_vep_error,";",round(100*filt_vep_error/itera,2),"(%)")
     print("# of AI-lacked variants :",filt_ai_error,";",round(100*filt_ai_error/itera,2),"(%)")
-    print("# of output variants :",len(uniq_vars),";",round(100*len(uniq_vars)/itera,2),"(%)")
-    print("# of output annotations : ",len(uniq_annots))
+    print("# of output unique variants :",len(uniq_vars),";",round(100*len(uniq_vars)/itera,2),"(%)")
+    print("# of output unique annotations : ",len(uniq_annots))
 
-
-#https://www.javadrive.jp/python/userfunc/index5.html
 def main(args=None):
     args,parser = get_options()
     if hasattr(args, 'handler'):
