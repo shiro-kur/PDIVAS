@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from os import path
 from codecs import open
 import io
@@ -37,11 +37,11 @@ setup(name='pdivas',
       author_email=author_email,
       license=license,
       url=url,
-      packages=package_name,
+      packages=find_packages(),
       install_requires=_requirements(),
       package_data={'pdivas': ['model/PDIVAS.sav']},
-      entry_points={'console_scripts': ['pdivas=pdivas.__main__:main']},
-      test_suite='tests')
+      entry_points={'console_scripts': ['pdivas=pdivas.__main__:main']}
+      )
       
       
 
