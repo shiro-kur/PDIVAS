@@ -31,7 +31,7 @@ To annotate your VCF file, please run the command below,for example.
 conda install -c bioconda vcfanno
 git clone https://github.com/brentp/vcfanno.git
 ```
-**0. Setting score-precomputed files**  
+**1. Setting score-precomputed files**  
 (Download score-precomputed file above and create a configure file (following https://github.com/brentp/vcfanno))
 ```sh
 vi ./conf.toml
