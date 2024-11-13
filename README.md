@@ -5,7 +5,7 @@
 
 
 ### UPDATE info
-**to v.1.6 (2024/11/13)**
+**to v.1.2.0 (2024/11/13)**
 - PDIVAS subcommand vcf2tsv became able to handle & output sample columns in VCF files.
 - SpliceAI annotation file (grch38.txt) was updated to GENCODE V47.
 - Debug PDIVAS exceptional output (about 'wo_annots' and 'out_of_scope').
