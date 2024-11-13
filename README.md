@@ -4,6 +4,12 @@
 ![PDIVAS image](./PDIVAS_pictures_Github/PDIVAS_Graphical_abstract_final_github.png)
 
 
+### UPDATE info
+**to v.1.6 (2024/11/13)**
+- PDIVAS subcommand vcf2tsv became able to handle & output sample columns in VCF files.
+- SpliceAI annotation file (grch38.txt) was updated to GENCODE V47.
+- Debug PDIVAS exceptional output (about 'wo_annots' and 'out_of_scope').
+
 ## Sumary
 - PDIVAS is a pathogenicity predictor for deep-intronic variants causing aberrant splicing.
 - The deep-intronic variants can cause pathogenic pseudoexons or extending exons which disturb the normal gene expression and can be the cause of patients with Mendelian diseases. 
