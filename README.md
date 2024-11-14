@@ -32,12 +32,12 @@ For the quick implementation of PDIVAS, please use the score-precomputed file [h
 Possible rare SNVs and short indels (1~4nt) in genes (n=4,512) of Mendelian diseases were comprehensively annotated in the file.
 To annotate your VCF file, please run the command below,for example.
 
-**0. Installation**
+### 0. Installation
 ```sh
 conda install -c bioconda vcfanno
 git clone https://github.com/brentp/vcfanno.git
 ```
-**1. Setting score-precomputed files**  
+### 1. Setting score-precomputed files
 (Download score-precomputed file above and create a configure file (following https://github.com/brentp/vcfanno))
 ```sh
 vi ./conf.toml
@@ -52,7 +52,7 @@ ops=["self"]
 names=["PDIVAS"]
 ```
 
-**2. Perform PDIVAS annotation**   
+### 2. Perform PDIVAS annotation
 ```sh
 # Move to your working directory. (The case below is the directory in this repository.)
 cd examples
@@ -65,7 +65,7 @@ vcfanno -lua ./vcfanno/example/custom.lua ./conf.toml ./ex.vcf > output_precomp.
 ## \<Option2\><br>Perform annotation of individual features and calculation of PDIVAS scores 
 For more comprehensive annotation than pre-computed files, run PDIVAS by following the description below.
 
-**0-1. Installation**
+### 0-1. Installation
 ```sh
 #It is better to prepare new conda environments for PDIVAS installation.
 #They take a little long time to solve the environment.
@@ -74,7 +74,7 @@ conda create -n VEP -c conda-forge -c bioconda perl==5.26.2 ensembl-vep==105
 ```
 The successful installation was verified on anaconda version 23.3.1
 
-**0-2. Setting customed usages**
+### 0-2. Setting customed usages
 
 -For output-customized SpliceAI for PDIVAS conda environment   
 https://github.com/shiro-kur/SpliceAI
@@ -104,13 +104,13 @@ $ tabix -f ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
 ```
 The ConSplice file was edited from the originally scored file by ([Cormier et al., BMC Bioinformatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
 
-**1. Preprocessing VCF format (resolve the multi-allelic site to biallelic sites)**
+### 1. Preprocessing VCF format (resolve the multi-allelic site to biallelic sites)
 ```sh
 conda activate PDIVAS
 bcftools norm -m - multi.vcf > bi.vcf
 ```
 
-**2. Add gene annotations, MaxEntScan scores, and ConSplice scores with VEP.**
+### 2. Add gene annotations, MaxEntScan scores, and ConSplice scores with VEP.
 ```sh
 conda activate VEP
 vep \
@@ -123,23 +123,23 @@ vep \
 -i ./examples/ex.vcf.gz -o ./examples/ex_vep.vcf.gz
 ```
 
-**3. Add output-customized SpliceAI scores**
+### 3. Add output-customized SpliceAI scores
 ```sh
 conda activate PDIVAS
 spliceai -I examples/ex_vep.vcf.gz -O examples/ex_vep_AI.vcf -R hg38.fa -A grch38 -D 300 -M 1
 ```
 
-**4. Perform the detection of deep-intronic variants and PDIVAS prediction**
+### 4. Perform the detection of deep-intronic variants and PDIVAS prediction
 ```sh
 pdivas predict -I examples/ex_vep_AI.vcf -O examples/ex_vep_AI_PD.vcf.gz -F off
 ```
-**5. (Optional) Convert VCF file with PDIVAS annotation to TSV file (1 gene annotation per 1 line)**
+### 5. (Optional) Convert VCF file with PDIVAS annotation to TSV file (1 gene annotation per 1 line)
 ```sh
 pdivas vcf2tsv -I examples/ex_vep_AI_PD.vcf.gz -O examples/ex_vep_AI_PD.tsv
 ```
 
 ## Usage of PDIVAS command line
-**1. $ pdivas predict**  
+### 1. $ pdivas predict
 Required parameters:
  - ```-I```: Input VCF(.vcf/.vcf.gz) with variants of interest.
  - ```-O```: Output VCF(.vcf/.vcf.gz) with PDIVAS predictions `GENE_ID|PDIVAS_score` Variants in multiple genes have separate predictions for each gene.
@@ -154,7 +154,7 @@ Optional parameters:
 |  GENE_ID  | Ensembl gene ID based on GENCODE V41(GRCh38) or V19(GRCh37) |
 |  PDIVAS  | \<Predicted result\> <br> **Pattern 1 : 0.000-1.000 float value**  (The higher, the more deleterious) <br> \<Exceptions\> <br> - Output with '-F off'. Filtered with '-F on'. <br> **Pattern 2 : 'wo_annots'**, variants out of VEP or SpliceAI annotations : <br>**Pattern 3 : 'out_of_scope'**, variants without PDIVAS annotation scope<br>       (chrY, non-coding gene or non-deep-intronic variants)　<br>**Pattern 4 :'no_gene_match'**, variants without matched gene annotation between VEP and SpliceAI|
 
-**2. $ pdivas vcf2tsv**  
+### 2. $ pdivas vcf2tsv
 Required parameters:
  - ```-I```: *Input VCF(.vcf/.vcf.gz) with VEP, SpliceAI,and PDIVAS annotations.
  - ```-O```: The path to output tsv file name and pass.  
