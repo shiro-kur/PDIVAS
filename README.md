@@ -76,19 +76,13 @@ The successful installation was verified on anaconda version 23.3.1
 
 **0-2. Setting customed usages**
 
--For output-customized SpliceAI for PDIVAS conda environment
+-For output-customized SpliceAI for PDIVAS conda environment   
+https://github.com/shiro-kur/SpliceAI
 ```sh
-git clone https://github.com/shiro-kur/PDIVAS.git
-cd PDIVAS/Customed_SpliceAI
-cp ./__main__for_customed_SpliceAI.py installed_path/__main__.py
-cp ./utils_for_customed-SpliceAI.py installed_path/utils.py
-cp -rf ./annotations_for_customed_SpliceAI installed_path/annotations
-
-# Examples of installed_path (~/miniconda3/envs/ex/lib/python3.9/site-packages/spliceai)
-# files and directories included in the spliceai directory by default ↓
-# __init__.py  __main__.py  __pycache__  annotations  models  utils.py
-# the successfully-customed result was described in examples/~~.vcf
+git clone https://github.com/shiro-kur/SpliceAI.git
+cp -r SpliceAI/spliceai/* ~/miniconda3/envs/PDIVAS/lib/python3.9/site-packages/spliceai/
 ```
+
 -For VEP custom usage
 - Download VEP cache file (version>=107, should correspond to your installed VEP version).  
 Follow the instructions of "Manually downloading caches" part below.  
