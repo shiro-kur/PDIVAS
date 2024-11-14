@@ -84,13 +84,25 @@ cp -r SpliceAI/spliceai/* ~/miniconda3/envs/PDIVAS/lib/python3.9/site-packages/s
 ```
 
 -For VEP custom usage
-- Download VEP cache file (version>=107, should correspond to your installed VEP version).  
-Follow the instructions of "Manually downloading caches" part below.  
-(https://asia.ensembl.org/info/docs/tools/vep/script/vep_cache.html)
-- To implement MaxEntScan plugin, follow the instructions below.  
-(https://asia.ensembl.org/info/docs/tools/vep/script/vep_plugins.html#maxentscan)
-- Download ConSplice score file from [here](https://console.cloud.google.com/storage/browser/pdivas;tab=objects?project=vibrant-crawler-377901&prefix=&forceOnObjectsSortingFiltering=false&hl=ja).  
-The file was edited from the originally scored file by ([Cormier et al., BMC Bioinformatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
+```sh
+# Download VEP cache files
+$ mkdir -p ~/Ref/.vep
+$ cd ~/Ref/.vep
+$ wget https://ftp.ensembl.org/pub/release-113/variation/vep/homo_sapiens_vep_113_GRCh38.tar.gz
+$ tar xzf homo_sapiens_vep_113_GRCh38.tar.gz
+
+#Setting MaxEntScan
+$ mkdir -p ~/Ref/.vep/Plugin/MaxEntScan
+$ cd ~/Ref/.vep/Plugin/MaxEntScan
+$ wget http://hollywood.mit.edu/burgelab/maxent/download/fordownload.tar.gz
+$ tar xzf fordownload.tar.gz
+
+#Setting ConSplice
+$ cd ~/Ref/.vep
+$ wget https://storage.cloud.google.com/pdivas/ConSplice_for_PDIVAS/ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
+$ tabix -f ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
+```
+The ConSplice file was edited from the originally scored file by ([Cormier et al., BMC Bioinformatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
 
 **1. Preprocessing VCF format (resolve the multi-allelic site to biallelic sites)**
 ```sh
