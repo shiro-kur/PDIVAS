@@ -99,7 +99,7 @@ $ tar xzf fordownload.tar.gz
 
 #Setting ConSplice
 $ cd ~/Ref/.vep
-$ wget https://storage.cloud.google.com/pdivas/ConSplice_for_PDIVAS/ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
+$ wget https://storage.googleapis.com/pdivas/ConSplice_for_PDIVAS/ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
 $ tabix -f ConSplice.50bp_region.inverse_proportion_refo_hg38.bed.gz
 ```
 The ConSplice file was edited from the originally scored file by ([Cormier et al., BMC Bioinformatics 2022](https://home.chpc.utah.edu/~u1138933/ConSplice/best_splicing_constraint_model/)).
